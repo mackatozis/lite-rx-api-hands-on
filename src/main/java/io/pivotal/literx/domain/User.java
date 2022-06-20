@@ -68,4 +68,45 @@ public class User {
                 ", lastname='" + lastname + '\'' +
                 '}';
     }
+
+    public static UserBuilder builder() {
+        return new UserBuilder();
+    }
+
+    public static class UserBuilder {
+
+        private String username;
+        private String firstname;
+        private String lastname;
+
+        UserBuilder() {
+        }
+
+        public UserBuilder username(String username) {
+            this.username = username;
+            return this;
+        }
+
+        public UserBuilder firstname(String firstname) {
+            this.firstname = firstname;
+            return this;
+        }
+
+        public UserBuilder lastname(String lastname) {
+            this.lastname = lastname;
+            return this;
+        }
+
+        public User build() {
+            return new User(username, firstname, lastname);
+        }
+
+        public String toString() {
+            return "UserBuilder{" +
+                    "username='" + username + '\'' +
+                    ", firstname='" + firstname + '\'' +
+                    ", lastname='" + lastname + '\'' +
+                    '}';
+        }
+    }
 }
