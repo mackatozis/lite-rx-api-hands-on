@@ -16,7 +16,7 @@ import reactor.test.publisher.PublisherProbe;
  *
  * @author Sebastien Deleuze
  */
-public class Part08OtherOperationsTest {
+class Part08OtherOperationsTest {
 
     Part08OtherOperations workshop = new Part08OtherOperations();
 
@@ -26,7 +26,7 @@ public class Part08OtherOperationsTest {
 //========================================================================================
 
     @Test
-    public void zipFirstNameAndLastName() {
+    void zipFirstNameAndLastName() {
         Flux<String> usernameFlux = Flux.just(User.SKYLER.getUsername(), User.JESSE.getUsername(), User.WALTER.getUsername(),
                 User.SAUL.getUsername());
         Flux<String> firstnameFlux = Flux.just(User.SKYLER.getFirstname(), User.JESSE.getFirstname(), User.WALTER.getFirstname(),
@@ -42,7 +42,7 @@ public class Part08OtherOperationsTest {
 //========================================================================================
 
     @Test
-    public void fastestMono() {
+    void fastestMono() {
         ReactiveRepository<User> repository = new ReactiveUserRepository(MARIE);
         ReactiveRepository<User> repositoryWithDelay = new ReactiveUserRepository(250, MIKE);
         Mono<User> mono = workshop.useFastestMono(repository.findFirst(), repositoryWithDelay.findFirst());
@@ -61,7 +61,7 @@ public class Part08OtherOperationsTest {
 //========================================================================================
 
     @Test
-    public void fastestFlux() {
+    void fastestFlux() {
         ReactiveRepository<User> repository = new ReactiveUserRepository(MARIE, MIKE);
         ReactiveRepository<User> repositoryWithDelay = new ReactiveUserRepository(250);
         Flux<User> flux = workshop.useFastestFlux(repository.findAll(), repositoryWithDelay.findAll());
@@ -80,7 +80,7 @@ public class Part08OtherOperationsTest {
 //========================================================================================
 
     @Test
-    public void complete() {
+    void complete() {
         ReactiveRepository<User> repository = new ReactiveUserRepository();
         PublisherProbe<User> probe = PublisherProbe.of(repository.findAll());
         Mono<Void> completion = workshop.fluxCompletion(probe.flux());
@@ -92,7 +92,7 @@ public class Part08OtherOperationsTest {
 //========================================================================================
 
     @Test
-    public void nullHandling() {
+    void nullHandling() {
         Mono<User> mono = workshop.nullAwareUserToMono(User.SKYLER);
         StepVerifier.create(mono)
                 .expectNext(User.SKYLER)
@@ -105,7 +105,7 @@ public class Part08OtherOperationsTest {
 //========================================================================================
 
     @Test
-    public void emptyHandling() {
+    void emptyHandling() {
         Mono<User> mono = workshop.emptyToSkyler(Mono.just(User.WALTER));
         StepVerifier.create(mono)
                 .expectNext(User.WALTER)
@@ -119,7 +119,7 @@ public class Part08OtherOperationsTest {
 //========================================================================================
 
     @Test
-    public void collect() {
+    void collect() {
         ReactiveRepository<User> repository = new ReactiveUserRepository();
         Mono<List<User>> collection = workshop.fluxCollection(repository.findAll());
         StepVerifier.create(collection)

@@ -11,14 +11,14 @@ import reactor.test.StepVerifier;
  * @author Sebastien Deleuze
  * @see <a href="https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html">Mono Javadoc</a>
  */
-public class Part02MonoTest {
+class Part02MonoTest {
 
     Part02Mono workshop = new Part02Mono();
 
 //========================================================================================
 
     @Test
-    public void empty() {
+    void empty() {
         Mono<String> mono = workshop.emptyMono();
         StepVerifier.create(mono)
                 .verifyComplete();
@@ -27,7 +27,7 @@ public class Part02MonoTest {
 //========================================================================================
 
     @Test
-    public void noSignal() {
+    void noSignal() {
         Mono<String> mono = workshop.monoWithNoSignal();
         StepVerifier
                 .create(mono)
@@ -39,7 +39,7 @@ public class Part02MonoTest {
 //========================================================================================
 
     @Test
-    public void fromValue() {
+    void fromValue() {
         Mono<String> mono = workshop.fooMono();
         StepVerifier.create(mono)
                 .expectNext("foo")
@@ -49,7 +49,7 @@ public class Part02MonoTest {
 //========================================================================================
 
     @Test
-    public void error() {
+    void error() {
         Mono<String> mono = workshop.errorMono();
         StepVerifier.create(mono)
                 .verifyError(IllegalStateException.class);

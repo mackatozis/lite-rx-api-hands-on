@@ -21,7 +21,7 @@ import reactor.util.annotation.Nullable;
  *
  * @author Sebastien Deleuze
  */
-public class Part06RequestTest {
+class Part06RequestTest {
 
     Part06Request workshop = new Part06Request();
     ReactiveRepository<User> repository = new ReactiveUserRepository();
@@ -32,7 +32,7 @@ public class Part06RequestTest {
     ByteArrayOutputStream logConsole;
 
     @AfterEach
-    public void afterEach() {
+    void afterEach() {
         if (logConsole != null) {
             originalConsole.println(logConsole.toString());
             System.setOut(originalConsole);
@@ -43,7 +43,7 @@ public class Part06RequestTest {
 //========================================================================================
 
     @Test
-    public void requestAll() {
+    void requestAll() {
         Flux<User> flux = repository.findAll();
         StepVerifier verifier = workshop.requestAllExpectFour(flux);
         verifier.verify();
@@ -52,7 +52,7 @@ public class Part06RequestTest {
 //========================================================================================
 
     @Test
-    public void requestOneByOne() {
+    void requestOneByOne() {
         Flux<User> flux = repository.findAll();
         StepVerifier verifier = workshop.requestOneExpectSkylerThenRequestOneExpectJesse(flux);
         verifier.verify();
@@ -61,7 +61,7 @@ public class Part06RequestTest {
 //========================================================================================
 
     @Test
-    public void experimentWithLog() {
+    void experimentWithLog() {
         logConsole = new ByteArrayOutputStream();
         System.setOut(new PrintStream(logConsole));
 
@@ -97,7 +97,7 @@ public class Part06RequestTest {
 //========================================================================================
 
     @Test
-    public void experimentWithDoOn() {
+    void experimentWithDoOn() {
         Flux<User> flux = workshop.fluxWithDoOnPrintln();
 
         //setting up the logConsole here should ensure we only capture console logs from the Flux

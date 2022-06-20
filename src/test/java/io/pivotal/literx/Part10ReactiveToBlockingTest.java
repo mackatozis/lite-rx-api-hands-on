@@ -15,7 +15,7 @@ import reactor.core.publisher.Mono;
  *
  * @author Sebastien Deleuze
  */
-public class Part10ReactiveToBlockingTest {
+class Part10ReactiveToBlockingTest {
 
     Part10ReactiveToBlocking workshop = new Part10ReactiveToBlocking();
     ReactiveRepository<User> repository = new ReactiveUserRepository();
@@ -23,7 +23,7 @@ public class Part10ReactiveToBlockingTest {
 //========================================================================================
 
     @Test
-    public void mono() {
+    void mono() {
         Mono<User> mono = repository.findFirst();
         User user = workshop.monoToValue(mono);
         assertThat(user).isEqualTo(User.SKYLER);
@@ -32,7 +32,7 @@ public class Part10ReactiveToBlockingTest {
 //========================================================================================
 
     @Test
-    public void flux() {
+    void flux() {
         Flux<User> flux = repository.findAll();
         Iterable<User> users = workshop.fluxToValues(flux);
         Iterator<User> it = users.iterator();

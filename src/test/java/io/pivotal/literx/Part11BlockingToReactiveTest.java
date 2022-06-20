@@ -25,14 +25,14 @@ import reactor.test.StepVerifier;
  * @see Flux#publishOn(Scheduler)
  * @see Schedulers
  */
-public class Part11BlockingToReactiveTest {
+class Part11BlockingToReactiveTest {
 
     Part11BlockingToReactive workshop = new Part11BlockingToReactive();
 
 //========================================================================================
 
     @Test
-    public void slowPublisherFastSubscriber() {
+    void slowPublisherFastSubscriber() {
         BlockingUserRepository repository = new BlockingUserRepository();
         Flux<User> flux = workshop.blockingRepositoryToFlux(repository);
         assertThat(repository.getCallCount())
@@ -46,7 +46,7 @@ public class Part11BlockingToReactiveTest {
 //========================================================================================
 
     @Test
-    public void fastPublisherSlowSubscriber() {
+    void fastPublisherSlowSubscriber() {
         ReactiveRepository<User> reactiveRepository = new ReactiveUserRepository();
         BlockingUserRepository blockingRepository = new BlockingUserRepository(new User[]{});
         Mono<Void> complete = workshop.fluxToBlockingRepository(reactiveRepository.findAll(), blockingRepository);

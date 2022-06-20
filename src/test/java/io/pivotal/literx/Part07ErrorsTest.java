@@ -29,14 +29,14 @@ import reactor.test.StepVerifier;
  * @author Sebastien Deleuze
  * @see Exceptions#propagate(Throwable)
  */
-public class Part07ErrorsTest {
+class Part07ErrorsTest {
 
     Part07Errors workshop = new Part07Errors();
 
 //========================================================================================
 
     @Test
-    public void monoWithValueInsteadOfError() {
+    void monoWithValueInsteadOfError() {
         Mono<User> mono = workshop.betterCallSaulForBogusMono(Mono.error(new IllegalStateException()));
         StepVerifier.create(mono)
                 .expectNext(User.SAUL)
@@ -51,7 +51,7 @@ public class Part07ErrorsTest {
 //========================================================================================
 
     @Test
-    public void fluxWithValueInsteadOfError() {
+    void fluxWithValueInsteadOfError() {
         Flux<User> flux = workshop.betterCallSaulAndJesseForBogusFlux(Flux.error(new IllegalStateException()));
         StepVerifier.create(flux)
                 .expectNext(User.SAUL, User.JESSE)
@@ -66,7 +66,7 @@ public class Part07ErrorsTest {
 //========================================================================================
 
     @Test
-    public void handleCheckedExceptions() {
+    void handleCheckedExceptions() {
         Flux<User> flux = workshop.capitalizeMany(Flux.just(User.SAUL, User.JESSE));
 
         StepVerifier.create(flux)
